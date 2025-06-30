@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Basisconfiguratie bestand van de ZIB applicaties-->
+<configuraties>
+  <applicationSettings>
+    <CommonConfigLocation></CommonConfigLocation>
+    <ImageLocation></ImageLocation>
+    <WorkLocation></WorkLocation>
+    <UserConfigLocation></UserConfigLocation>
+    <ManualWikiLocation>https://zibs.nl/wiki</ManualWikiLocation>
+    <Snomed_languageRefsetId_NL>31000146106</Snomed_languageRefsetId_NL>
+    <Snomed_languageRefsetId_EN>900000000000509007</Snomed_languageRefsetId_EN>
+    <Snomed_languageRefsetId_PatNL>15551000146102</Snomed_languageRefsetId_PatNL>
+    <TerminologyServiceLink>https://terminologie.nictiz.nl/terminology/</TerminologyServiceLink>
+    <CodeTranslateFromYear>2018</CodeTranslateFromYear>
+    <TerminologyPageLink>https://terminologie.nictiz.nl/art-decor/</TerminologyPageLink>
+    <PasswdEncryptionLevel>1</PasswdEncryptionLevel>
+    <ValuesetIdBase>2.16.840.1.113883.2.4.3.11.60.40.2</ValuesetIdBase>
+    <ZibIdBase>2.16.840.1.113883.2.4.3.11.60.40.3</ZibIdBase>
+    <CodeSystemBase>2.16.840.1.113883.2.4.3.11.60.40.4</CodeSystemBase>
+    <CodeSystemCodesLocation></CodeSystemCodesLocation>
+    <CodeSystemCodesFilename>Codes.xml</CodeSystemCodesFilename>
+    <ZibIdentifiersFilename>ZibIds.xml</ZibIdentifiersFilename>
+  </applicationSettings>
+  <tagtosatisfyVS />
+</configuraties>

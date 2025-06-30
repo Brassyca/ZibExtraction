@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Update bestand van de ZIB configuratie bestanden
+<files>
+	<file name="%LOCALAPPDATA%\Nictiz\ZibExtraction\ZibAppsStart.cfg" title="Basisconfiguratie bestand van de ZIB applicaties" version = [current version] newVersion= [new version]>
+		<addTitle>value</addTitle>
+		
+		<addElement path=[XPath] pathSequenceNumber=[zerobased] name=[name element to add] addMode=[addAfter,addBefore,addFirst] reference=[elementname before/after] referenceSequenceNumber=[zerobased]>value</addElement>
+		
+		<updateElement path=[XPath] pathSequenceNumber=[zerobased] name=[elementname to update] elementSequenceNumber=[zerobased]>value</updateElement> ?? condition=""/>
+		
+		<addAttribute path=[XPath pathSequenceNumber=[zerobased] element=[elementname] elementSequenceNumber=[zerobased] name=[name attribute to add]>value</addAttribute>
+		
+		<updateAttribute path=[XPath] pathSequenceNumber=[zerobased] element=[elementname] elementSequenceNumber=[zerobased] name=[name attribute to update]>value</updateAttribute>
+	</file>
+</files>
+-->
+
+<files>
+<file/>
+<!--	<file name="%LOCALAPPDATA%\Nictiz\ZibExtraction\ZibAppsStart.cfg" title="Basisconfiguratie bestand van de ZIB applicaties" version = "" newVersion= "1.0">  -->
+<!--		<addTitle>""</addTitle>  -->
+<!--		<addElement path="./configuraties/applicationSettings/zib" pathSequenceNumber="2" name = "name" addMode = "addBefore" reference = "CodeTranslateFromYear" referenceSequenceNumber="0" >Pietje0</addElement>  -->
+<!--		<addAttribute path="./configuraties/applicationSettings/zib" element="name" elementSequenceNumber="2" name= "prefix">Jhr.</addAttribute> -->
+<!--		<updateElement path="./configuraties/applicationSettings/zib" element="name" elementSequenceNumber="1">NewPietje</updateElement>  -->
+<!--		<updateAttribute path="./configuraties/applicationSettings/zib" element="name" elementSequenceNumber="1" name = "prefix">Mevr</updateAttribute> -->
+<!--	</file> -->
+</files>

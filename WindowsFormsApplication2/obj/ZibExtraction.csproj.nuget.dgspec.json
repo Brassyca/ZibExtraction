@@ -1,0 +1,65 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Spruyt\\Documents\\Visual Studio 2019\\Projects\\ZibExtraction\\WindowsFormsApplication2\\ZibExtraction.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Spruyt\\Documents\\Visual Studio 2019\\Projects\\ZibExtraction\\WindowsFormsApplication2\\ZibExtraction.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Spruyt\\Documents\\Visual Studio 2019\\Projects\\ZibExtraction\\WindowsFormsApplication2\\ZibExtraction.csproj",
+        "projectName": "ZibExtraction",
+        "projectPath": "C:\\Users\\Spruyt\\Documents\\Visual Studio 2019\\Projects\\ZibExtraction\\WindowsFormsApplication2\\ZibExtraction.csproj",
+        "packagesPath": "C:\\Users\\Spruyt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Spruyt\\Documents\\Visual Studio 2019\\Projects\\ZibExtraction\\WindowsFormsApplication2\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Spruyt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "dependencies": {
+            "FreeSpire.Doc": {
+              "target": "Package",
+              "version": "[11.6.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.2, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

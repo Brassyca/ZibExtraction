@@ -1,0 +1,206 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "FreeSpire.Doc/11.6.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Spire.Doc.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Spire.Doc.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win": {
+      "FreeSpire.Doc/11.6.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Spire.Doc.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Spire.Doc.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x64": {
+      "FreeSpire.Doc/11.6.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Spire.Doc.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Spire.Doc.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x86": {
+      "FreeSpire.Doc/11.6.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Spire.Doc.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Spire.Doc.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FreeSpire.Doc/11.6.0": {
+      "sha512": "OUkSaNsIqXePNSfcYOFT8wzRalrXczTdMYTOqLVLOcUQScZ6inw0vRJP04aICBx9O4jTo5RMP3rcRxkqwiVsbw==",
+      "type": "package",
+      "path": "freespire.doc/11.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "freespire.doc.11.6.0.nupkg.sha512",
+        "freespire.doc.nuspec",
+        "lib/MonoAndroid/Spire.Doc.dll",
+        "lib/MonoAndroid/Spire.Doc.xml",
+        "lib/net40/Spire.Doc.XML",
+        "lib/net40/Spire.Doc.dll",
+        "lib/net6.0/Spire.Doc.dll",
+        "lib/net6.0/Spire.Doc.xml",
+        "lib/netstandard2.0/Spire.Doc.dll",
+        "lib/netstandard2.0/Spire.Doc.xml",
+        "lib/xamarinios/Spire.Doc.dll",
+        "lib/xamarinios/Spire.Doc.xml",
+        "license.txt"
+      ]
+    },
+    "Newtonsoft.Json/13.0.2": {
+      "sha512": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/net6.0/Newtonsoft.Json.dll",
+        "lib/net6.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.2.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "FreeSpire.Doc >= 11.6.0",
+      "Newtonsoft.Json >= 13.0.2"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Spruyt\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Spruyt\\Documents\\Visual Studio 2019\\Projects\\ZibExtraction\\WindowsFormsApplication2\\ZibExtraction.csproj",
+      "projectName": "ZibExtraction",
+      "projectPath": "C:\\Users\\Spruyt\\Documents\\Visual Studio 2019\\Projects\\ZibExtraction\\WindowsFormsApplication2\\ZibExtraction.csproj",
+      "packagesPath": "C:\\Users\\Spruyt\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Spruyt\\Documents\\Visual Studio 2019\\Projects\\ZibExtraction\\WindowsFormsApplication2\\obj\\",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Spruyt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "projectReferences": {}
+        }
+      }
+    },
+    "frameworks": {
+      "net48": {
+        "dependencies": {
+          "FreeSpire.Doc": {
+            "target": "Package",
+            "version": "[11.6.0, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.2, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  }
+}

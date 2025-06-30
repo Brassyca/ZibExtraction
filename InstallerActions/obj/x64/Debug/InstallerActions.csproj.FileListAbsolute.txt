@@ -1,0 +1,10 @@
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\bin\x64\Debug\UpdateConfig.xml
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\bin\x64\Debug\InstallerActions.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\bin\x64\Debug\InstallerActions.pdb
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\bin\x64\Debug\CompareXMLDocs.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\bin\x64\Debug\CompareXMLDocs.pdb
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\obj\x64\Debug\InstallerActions.csproj.AssemblyReference.cache
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\obj\x64\Debug\InstallerActions.csproj.CoreCompileInputs.cache
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\obj\x64\Debug\InstallerActions.csproj.CopyComplete
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\obj\x64\Debug\InstallerActions.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\InstallerActions\obj\x64\Debug\InstallerActions.pdb
