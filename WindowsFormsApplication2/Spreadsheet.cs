@@ -203,7 +203,7 @@ namespace Zibs
                     //             Laatste sheet bijwerken
                     if (mySheet != null) postprocessSheet(mySheet, iOrigin);
                     document.SelectWorksheet("Data");
-                    document.Close();
+                    document.Dispose();
                 }
             }
 

@@ -51,6 +51,11 @@ C:\Users\Spruyt\Documents\Visual Studio 2015\Projects\ZibExtraction\WindowsForms
 C:\Users\Spruyt\Documents\Visual Studio 2015\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.application
 C:\Users\Spruyt\Documents\Visual Studio 2015\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.exe
 C:\Users\Spruyt\Documents\Visual Studio 2015\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.pdb
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\libHarfBuzzSharp.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\x86\libHarfBuzzSharp.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\x64\libHarfBuzzSharp.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\arm64\libHarfBuzzSharp.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\libHarfBuzzSharp.dylib
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\UpdateConfig.xml
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ZibAppsStart.cfg
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ZibExtraction.cfg
@@ -59,11 +64,17 @@ C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsForms
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ZibExtraction.application
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ZibExtraction.exe
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ZibExtraction.pdb
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\DocumentFormat.OpenXml.Framework.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\Spire.Doc.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\HarfBuzzSharp.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\System.Buffers.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\System.Memory.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\CodeCheck.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\CodeManagement.exe
-C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\DocumentFormat.OpenXml.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\EAUtils.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ExtensionClasses.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\JiraClient.dll
@@ -86,7 +97,6 @@ C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsForms
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\CodeCheck.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\CodeManagement.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\CodeManagement.exe.config
-C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\DocumentFormat.OpenXml.xml
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\EAUtils.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ExtensionClasses.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\JiraClient.pdb
@@ -129,4 +139,3 @@ C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsForms
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.csproj.CopyComplete
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.exe
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.pdb
-C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.exe.config

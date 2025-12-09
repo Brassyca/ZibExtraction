@@ -2655,20 +2655,20 @@ namespace Zibs
             /// </summary>
             /// <param name="zibName"></param>
             /// <returns></returns>
-
             public static string fileName(string zibName, textLanguage zibLanguage)
             {
                 return Name(zibName) + "-v" + Version(zibName) +
                         (zibLanguage == textLanguage.Multi ? "" : ("(" + zibLanguage.ToString()) + ")");
                 //      (zibLanguage == textLanguage.Multi ? "" : ("(" + Settings.zibcontext.pubLanguage.ToString()) + ")");
             }
+
+
             /// <summary>
             /// Geeft op grond van de naam van de zib de te gebruiken filenaam aan in het format 'naam'-v'versie'('publicatie''taal')
             /// </summary>
             /// <param name="zibName"></param>
             /// <returns></returns>
             /// 
-
             public static string fileName2(string zibName, textLanguage zibLanguage)
             {
                 return Name(zibName) + "-v" + Version(zibName) +

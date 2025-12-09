@@ -38,13 +38,17 @@
       "frameworks": {
         "net48": {
           "dependencies": {
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
             "FreeSpire.Doc": {
               "target": "Package",
-              "version": "[11.6.0, )"
+              "version": "[12.2.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.2, )"
+              "version": "[13.0.4, )"
             }
           }
         }
