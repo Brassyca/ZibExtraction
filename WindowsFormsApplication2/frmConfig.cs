@@ -200,6 +200,8 @@ namespace Zibs
                     Settings.wikicontext.tocSection = int.Parse(tBSection.Text);
                     Settings.zibcontext.ReleaseInfo = tbReleaseInfo.Text;
                     Settings.zibcontext.publicatie = cbReleaseName.Text;
+                    // Toegevoegd 15-12-2025
+                    Settings.zibcontext.PreReleaseNumber = int.Parse(tbNumber.Text);
 
                     Settings.wikicontext.ArtDecorRepository = lblADRepository.Text;
                     Settings.wikicontext.ArtDecorProjectOID = parent.releaseList.Count > 0 ? parent.releaseList[cbReleaseName.SelectedIndex][3] : "";
@@ -393,7 +395,7 @@ namespace Zibs
 
             private void cbReleaseName_SelectedIndexChanged(object sender, EventArgs e)
             {
-                this.OnReleaseChanged(new EventWithStringArgs(cbReleaseName.Text));
+                // 12-12-2025 this.OnReleaseChanged(new EventWithStringArgs(cbReleaseName.Text));
                 tbReleaseInfo.Text = parent.releaseList[cbReleaseName.SelectedIndex][1];
                 lblADRepository.Text = parent.releaseList[cbReleaseName.SelectedIndex][2];
 
@@ -412,6 +414,7 @@ namespace Zibs
                     lblReleaseName.Text = "Pre-publicatie:";
                     lblReleaseName.Left = publicationLabelLeft - 18;
                 }
+                this.OnReleaseChanged(new EventWithStringArgs(cbReleaseName.Text + (lblNumber.Visible ? ("-" + tbNumber.Text) : "")));
 
             }
 
