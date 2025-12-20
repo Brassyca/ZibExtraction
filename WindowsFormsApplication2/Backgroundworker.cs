@@ -427,7 +427,7 @@ namespace Zibs.ZibExtraction
             pagesToPurge = "";
             if (Settings.doPurgePages)
             {
-                List<string[]> zibsInRelease = Settings.XGenConfig.getZibsInRelease(Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage);
+                List<string[]> zibsInRelease = Settings.XGenConfig.getZibsInRelease(Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage);
                 if (zibsInRelease.Count > 0)
                 {
                     StringBuilder sb = new StringBuilder();
@@ -667,7 +667,7 @@ namespace Zibs.ZibExtraction
             int rowCount;
             sb.AppendLine("== " + (Settings.releasecontext.releaseType == "Release" ? tm.getWikiLabel("rlHeader") : tm.getWikiLabel("rlPreHeader")) + " " + Settings.zibcontext.publicatie + (Settings.releasecontext.preReleaseNumber >0 ? ("-" + Settings.releasecontext.preReleaseNumber.ToString()): "") + " ==");
             List<string[]> zibsInRelease;
-            zibsInRelease = Settings.XGenConfig.zibInReleasePerGroup(Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage);
+            zibsInRelease = Settings.XGenConfig.zibInReleasePerGroup(Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage);
             if (zibsInRelease.Count == 0) return true;
 
             int colCount = 4;
@@ -884,7 +884,7 @@ namespace Zibs.ZibExtraction
         private bool IsInRelease(EA.Package eaZib, string releaseDescription, textLanguage language)
         {
             List<string> zibVersions;
-            List<string[]> zibsInRelease = Settings.XGenConfig.getZibsInRelease(releaseDescription, language);
+            List<string[]> zibsInRelease = Settings.XGenConfig.getZibsInRelease(releaseDescription, Settings.zibcontext.PreReleaseNumber.ToString(), language);
             if (zibsInRelease.Count > 0)
             {
                 zibVersions = zibsInRelease.Where(x => x[1] == zibName.shortName(eaZib.Name))?.Select(y => y[2]).ToList();

@@ -833,7 +833,7 @@ namespace Zibs
 
                         footerText.AppendLine("==" + tm.getWikiLabel("ftReferences") + "==");
                         footerText.AppendLine("====" + tm.getWikiLabel("ftRefersTo") + "====");
-                        zibReferences = Settings.XGenConfig.UsesZibs(zOID, Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage);
+                        zibReferences = Settings.XGenConfig.UsesZibs(zOID, Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage);
                         if (zibReferences.Count > 0)
                         {
                             foreach (string[] zibRef in zibReferences)
@@ -843,7 +843,7 @@ namespace Zibs
                             footerText.AppendLine(":--");
 
                         footerText.AppendLine("====" + tm.getWikiLabel("ftReferredBy") + "====");
-                        zibReferences = Settings.XGenConfig.UsedInZibs(zOID, Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage);
+                        zibReferences = Settings.XGenConfig.UsedInZibs(zOID, Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage);
                         if (zibReferences.Count > 0)
                         {
                             foreach (string[] zibRef in zibReferences)
@@ -879,7 +879,7 @@ namespace Zibs
                         footerText.AppendLine(String.Format(tm.getWikiLabel("ftDownloads"), pdfFilename, xlsFilename));
                     }
                     footerText.AppendLine("==" + tm.getWikiLabel("ftHeader2") + "==");
-                    footerText.AppendLine(tm.getWikiLabel("ftInfoBase") + " " + Settings.XGenConfig.getReleaseInfo(Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage) + " <BR>");
+                    footerText.AppendLine(tm.getWikiLabel("ftInfoBase") + " " + Settings.XGenConfig.getReleaseInfo(Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage) + " <BR>");
                     //                  Toevoegen codesysteem versies
                     if (snomedVersion != "" && loincVersion != "")
                     {
@@ -908,7 +908,7 @@ namespace Zibs
                     footerText.AppendLine(tm.getLabel("ftArtDecorReference") + "[http://decor.nictiz.nl/art-decor/decor-datasets--zib1bbr-?id=" + zOID +
                         "&effectiveDate=" + Convert.ToDateTime(getPublishDate()).ToString("s") + "&language=" + multilanguageText.languageCode[Settings.zibcontext.pubLanguage] + "]");
                     footerText.AppendLine(tm.getLabel("ftHeader2"));
-                    footerText.AppendLine(tm.getLabel("ftInfoBase") + Settings.XGenConfig.getReleaseInfo(Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage));
+                    footerText.AppendLine(tm.getLabel("ftInfoBase") + Settings.XGenConfig.getReleaseInfo(Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage));
                     footerText.AppendLine(tm.getLabel("ftConditions"));
                     footerText.AppendLine(string.Format(tm.getWikiLabel("ftDate"),
                             DateTime.Now.ToString(new CultureInfo("en-GB")),
@@ -1382,7 +1382,7 @@ namespace Zibs
                         if (_element.StereotypeEx.Contains("reference"))
                         {
                             zibID = _element.TaggedValuesEx.OfType<EA.TaggedValue>().Where(x => x.Name == "DCM::ReferencedConceptId").First().Value;
-                            _zibName = Settings.XGenConfig.getLanguageSpecificName(zibID, Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage);
+                            _zibName = Settings.XGenConfig.getLanguageSpecificName(zibID, Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage);
                             link = zibName.wikiLink(_zibName, Settings.zibcontext.pubLanguage);
                         }
                         bool template = Settings.zibcontext.zibPrefix.Contains("template");
@@ -2064,7 +2064,7 @@ namespace Zibs
                     references.AddRange(getReferences(model));
                 }
 
-                registered= Settings.XGenConfig.registerReferences(ZibOID, Settings.zibcontext.publicatie, references, forceReg);
+                registered= Settings.XGenConfig.registerReferences(ZibOID, Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), references, forceReg);
 
 
                 return registered;
@@ -2345,7 +2345,7 @@ namespace Zibs
             public override string ToWiki()
             {
                 image = "block"; // "zib";
-                string _zibName = Settings.XGenConfig.getLanguageSpecificName(tagValue, Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage);
+                string _zibName = Settings.XGenConfig.getLanguageSpecificName(tagValue, Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage);
 //                int s = tagNotes.LastIndexOf(" ") + 1;
 //                string zref = tagNotes.Substring(s, tagNotes.Length - s - (tagNotes.LastIndexOf(".") == -1 ? 0 : 1));
 // 16-2                return "|[[Bestand: " + image + ".png]]||[[" + zref + (Settings.zibcontext.pubLanguage == textLanguage.Multi ? "" : ("(" + Settings.zibcontext.pubLanguage + ")")) + "|" + zref + "]]";
@@ -2354,7 +2354,7 @@ namespace Zibs
 
             public override string ToXLS()
             {
-                return "[Hyperlink:" + Settings.application.ManualWikiLocation + zibName.wikiLink(Settings.XGenConfig.getLanguageSpecificName(tagValue, Settings.zibcontext.publicatie, Settings.zibcontext.pubLanguage), Settings.zibcontext.pubLanguage) + "]" + tagNotes;
+                return "[Hyperlink:" + Settings.application.ManualWikiLocation + zibName.wikiLink(Settings.XGenConfig.getLanguageSpecificName(tagValue, Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), Settings.zibcontext.pubLanguage), Settings.zibcontext.pubLanguage) + "]" + tagNotes;
             }
         }
         // Valuetag interface (tot hier)
