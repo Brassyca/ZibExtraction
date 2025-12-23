@@ -287,10 +287,13 @@ namespace Zibs
             {
                 StringBuilder transcludeText = new StringBuilder();
                 List<string[]> allReleases = Settings.XGenConfig.GetAllReleases(zOID, Settings.zibcontext.pubLanguage);
+                // Sorteren zo dat de publicatie na de pre-publicaties komt
+                Settings.OrderReleaseList(ref allReleases, 0, 1);
+
                 if (allReleases.Count > 0)
                 {
                     string[] lastVersionInfo = allReleases[allReleases.Count - 1];
-                    string lastVersion = zibName.wikiLink(lastVersionInfo[3] + "-v" + lastVersionInfo[2], Settings.zibcontext.pubLanguage, lastVersionInfo[0]);
+                    string lastVersion = zibName.wikiLink(lastVersionInfo[3] + "-v" + lastVersionInfo[2], Settings.zibcontext.pubLanguage, lastVersionInfo[0], lastVersionInfo[1]);
                     transcludeText.AppendLine("<!-- Dit template is onderdeel van de ZIB wiki. Het bevat informatie over de versies van zib " + zOID + ". -->");
                     transcludeText.AppendLine("{{#ifeq:{{{1}}}|1|");
                     transcludeText.AppendLine("{{#ifeq:{{{2}}}|" + lastVersion + "||<div align = center>" + String.Format(tm.getWikiLabel("tcLastRelease"), lastVersion) +  "</div>|}}");
@@ -300,7 +303,8 @@ namespace Zibs
                     //27-09-2021 Ondescheid tussen publicatie en pre-publicatie toegevoegd incl prepublicatie volgnummer
                     foreach (var _release in allReleases)
                     {
-                        transcludeText.AppendLine("{{#ifeq:{{{2}}}|" + _release[0] + "||<li>[[" + zibName.wikiLink(_release[3] + "-v" + _release[2], Settings.zibcontext.pubLanguage, _release[0]) +
+                        string releaseName = Settings.GetReleaseFullName(int.Parse(_release[0]), int.Parse(_release[1]));
+                        transcludeText.AppendLine("{{#ifeq:{{{2}}}|" + releaseName + "||<li>[[" + zibName.wikiLink(_release[3] + "-v" + _release[2], Settings.zibcontext.pubLanguage, _release[0], _release[1]) +
                             " | " + (_release[1] == "0" ? (tm.getWikiLabel("hdPublication") + " " + _release[0]) : (tm.getWikiLabel("hdPrepublication") + " " + _release[0]) + "-" + _release[1]) + 
                             ", (" + tm.getWikiLabel("hdVersion") + " " + _release[2] + ")]]</li>}}");
                     }
@@ -339,27 +343,27 @@ namespace Zibs
                         if (value != textLanguage.Multi && value != Settings.zibcontext.pubLanguage)
                         {
                             string _zibname = Settings.XGenConfig.getLanguageSpecificName(zOID, value, zVersion);
-                            headerText.Append(" [[Bestand:" + value + ".png|link=" + zibName.wikiLink(_zibname + "-v" +zVersion, value,!Settings.zibcontext.zibPrefix.Contains("template")) + "]]");
+                            headerText.Append(" [[Bestand:" + value + ".png|link=" + zibName.wikiLink(_zibname + "-v" +zVersion, value, !Settings.zibcontext.zibPrefix.Contains("template")) + "]]");
                         }
                     headerText.AppendLine("<BR>");
                     headerText.AppendLine(tm.getWikiLabel("hdVersion") + ": '''" + zVersion + "''' <br>");
                     headerText.AppendLine(tm.getWikiLabel("hdStatus") + ":" + zStatus + "<br>");
-                    if (!Settings.zibcontext.zibPrefix.Contains("template")) headerText.AppendLine(tm.getWikiLabel("hdPublication") + ": '''" + (Settings.zibcontext.publicatie ?? "") + "''' <br>");
+                    if (!Settings.zibcontext.zibPrefix.Contains("template")) headerText.AppendLine(tm.getWikiLabel("hdPublication") + ": '''" + (Settings.releasecontext.releaseFullName ?? "") + "''' <br>");
                     //headerText.AppendLine(tm.getWikiLabel("hdPublication") + ": '''[[" + Settings.zibcontext.zibCategory + ": publicatieinformatie|" + (Settings.zibcontext.publicatie ?? "") + "]]''' <br>");
                     //headerText.AppendLine(tm.getWikiLabel("hdWikipageStatus") + ": '''" + Settings.wikicontext.wikiPagesStatus + "'''<BR>");
                     headerText.AppendLine(tm.getWikiLabel("hdPublicationStatus") + ": " + zPublicationStatus + "<br>");
                     headerText.AppendLine(tm.getWikiLabel("hdPublicationDate") + ": " + zPublicationDate);
                     // Hier volgt de Errata transclude pagina
                     headerText.AppendLine("<!-- Aanroep Errata transclude page -->");
-                    headerText.AppendLine("{{"+ tm.getWikiLabel("hdErrata") +"|"+ Settings.zibcontext.publicatie + "|{{PAGENAME}}}}");
+                    headerText.AppendLine("{{"+ tm.getWikiLabel("hdErrata") +"|"+ Settings.releasecontext.releaseFullName + "|{{PAGENAME}}}}");
                     headerText.AppendLine("<!-- tot hier -->");
                     //
                     headerText.AppendLine("-----");
                     if (!Settings.zibcontext.zibPrefix.Contains("template"))
                     {
                         headerText.AppendLine("<div style=\"text-align: right; direction: ltr; margin-left: 1em;\" >[[Bestand: Back 16.png| link= " +
-                        tm.getWikiLabel("wikiReleasePage") + "_" + (Settings.zibcontext.publicatie ?? "??") + "(" + Settings.zibcontext.pubLanguage + ")]] " +
-                        "[[" + tm.getWikiLabel("wikiReleasePage") + "_" + (Settings.zibcontext.publicatie ?? "??") + "(" + Settings.zibcontext.pubLanguage +
+                        tm.getWikiLabel("wikiReleasePage") + "_" + (Settings.releasecontext.releaseFullName ?? "??") + "(" + Settings.zibcontext.pubLanguage + ")]] " +
+                        "[[" + tm.getWikiLabel("wikiReleasePage") + "_" + (Settings.releasecontext.releaseFullName ?? "??") + "(" + Settings.zibcontext.pubLanguage +
                         ") |" + tm.getWikiLabel("hdBackToMainPage") + " ]]" + "</div>");
                     }
                 }
@@ -369,7 +373,7 @@ namespace Zibs
                     headerText.AppendLine(tm.getLabel("hdName") + ": " + zName);
                     headerText.AppendLine(tm.getLabel("hdVersion") + ": " + zVersion);
                     headerText.AppendLine(tm.getLabel("hdStatus") + ":" + zStatus);
-                    headerText.AppendLine(tm.getLabel("hdPublication") + ":" + Settings.zibcontext.publicatie ?? "");
+                    headerText.AppendLine(tm.getLabel("hdPublication") + ":" + Settings.releasecontext.releaseFullName ?? "");
                     headerText.AppendLine(tm.getLabel("hdPublicationStatus") + ": " + zPublicationStatus);
                     headerText.AppendLine(tm.getLabel("hdPublicationDate") + ": " + zPublicationDate);
                 }
@@ -393,7 +397,7 @@ namespace Zibs
                     headerText.AppendLine(tm.getLabel("xlsName") + ";" + zName);
                     headerText.AppendLine(tm.getLabel("hdVersion") + ";" + zVersion);
                     headerText.AppendLine(tm.getLabel("hdStatus") + ";" + zStatus);
-                    if (!Settings.zibcontext.zibPrefix.Contains("template")) headerText.AppendLine(tm.getLabel("hdPublication") + ";" + Settings.zibcontext.publicatie ?? "");
+                    if (!Settings.zibcontext.zibPrefix.Contains("template")) headerText.AppendLine(tm.getLabel("hdPublication") + ";" + Settings.releasecontext.releaseFullName ?? "");
                     headerText.AppendLine(tm.getLabel("hdPublicationStatus") + "; " + zPublicationStatus);
                     headerText.AppendLine(tm.getLabel("hdPublicationDate") + "; " + zPublicationDate);
                     headerText.AppendLine(tm.getLabel("xlsDate") + ";" + DateTime.Now.ToString(new CultureInfo("nl-NL")));
@@ -827,7 +831,8 @@ namespace Zibs
                         footerText.AppendLine("==" + tm.getWikiLabel("ftOtherReleases") + "==");
                         // ---
                         footerText.AppendLine("<!-- Hieronder wordt een transclude page aangeroepen -->");
-                        footerText.AppendLine("{{" + getTranscludeFilename(Settings.zibcontext.pubLanguage) + "|2|" + Settings.zibcontext.publicatie + "}}");
+                        //Settings.zibcontext.publicatie vervangen door Settings.releasecontext.releaseFullName
+                        footerText.AppendLine("{{" + getTranscludeFilename(Settings.zibcontext.pubLanguage) + "|2|" + Settings.releasecontext.releaseFullName + "}}");
                         footerText.AppendLine("<!-- Tot hier de transclude page -->");
                         // ---
 
@@ -864,15 +869,15 @@ namespace Zibs
                         footerText.AppendLine("<li>" + tm.getWikiLabel("ftArtDecorReference") + " [" + Settings.wikicontext.ArtDecorUrl + "/art-decor/decor-scenarios--" + Settings.wikicontext.ArtDecorRepository + "-?id=" + zOID.Replace(NLCM, Settings.wikicontext.ArtDecorProjectOID) +
                         "&effectiveDate=" + dateTime + "&language=" + multilanguageText.languageCode[Settings.zibcontext.pubLanguage] + "&scenariotree=false [[File:artdecor.jpg|16px|link=]]]</li>");
                         */
-                        footerText.AppendLine("<li>" + tm.getWikiLabel("ftArtDecorReference") + " {{ArtDecorLinks|" + Settings.zibcontext.publicatie + "|" + zOID.Replace((NLCM + "." ), "") +  "}}</li>");
+                        footerText.AppendLine("<li>" + tm.getWikiLabel("ftArtDecorReference") + " {{ArtDecorLinks|" + Settings.releasecontext.releaseFullName + "|" + zOID.Replace((NLCM + "." ), "") +  "}}</li>");
 
                         //                  De FHIR url wordt nu uit een sjabloon (SimplifierLinks) pagina gehaald
-                        footerText.AppendLine("<li>" + tm.getWikiLabel("ftSimplifierReference") + " {{SimplefierLinks|" + Settings.zibcontext.publicatie + "|"+ zShortnameEN + "}}</li>");
+                        footerText.AppendLine("<li>" + tm.getWikiLabel("ftSimplifierReference") + " {{SimplefierLinks|" + Settings.releasecontext.releaseFullName + "|"+ zShortnameEN + "}}</li>");
                         //                    footerText.AppendLine("<li>" + tm.getWikiLabel("ftSimplifierReference") + " [" + Settings.wikicontext.SimplifierUrl + " [[File:fhir.png|link=]]]</li>");
                         footerText.AppendLine("</ul>");
 
                         footerText.AppendLine("==" + tm.getWikiLabel("ftDownloadTitle") + "==");
-                        string filePostfix = (Settings.zibcontext.publicatie ?? "") + (language == textLanguage.Multi ? "" : language.ToString());
+                        string filePostfix = (Settings.releasecontext.releaseFullName ?? "") + (language == textLanguage.Multi ? "" : language.ToString());
                         filePostfix = filePostfix.Length > 0 ? "(" + filePostfix + ")" : filePostfix;
                         string xlsFilename = zFullname + filePostfix + ".xlsx";
                         string pdfFilename = zFullname + filePostfix + ".pdf";
@@ -897,8 +902,8 @@ namespace Zibs
                     if (!Settings.zibcontext.zibPrefix.Contains("template"))
                     {
                         footerText.AppendLine("<div style=\"text-align: right; direction: ltr; margin-left: 1em;\" >[[Bestand: Back 16.png| link= " +
-                        tm.getWikiLabel("wikiReleasePage") + "_" + (Settings.zibcontext.publicatie ?? "??") + "(" + Settings.zibcontext.pubLanguage + ")]] " +
-                        "[[" + tm.getWikiLabel("wikiReleasePage") + "_" + (Settings.zibcontext.publicatie ?? "??") + "(" + Settings.zibcontext.pubLanguage +
+                        tm.getWikiLabel("wikiReleasePage") + "_" + (Settings.releasecontext.releaseFullName ?? "??") + "(" + Settings.zibcontext.pubLanguage + ")]] " +
+                        "[[" + tm.getWikiLabel("wikiReleasePage") + "_" + (Settings.releasecontext.releaseFullName ?? "??") + "(" + Settings.zibcontext.pubLanguage +
                         ") |" + tm.getWikiLabel("hdBackToMainPage") + " ]]" + "</div>");
                     }
                 }
@@ -1396,7 +1401,7 @@ namespace Zibs
             private void dumpDiagram(EA.Package p, ref Dictionary<int, string[]> diagramList, textLanguage language)
             {
                 string path = Settings.userPreferences.DiagramLocation;
-                string publication = Settings.zibcontext.publicatie ?? "??";
+                string publication = Settings.releasecontext.releaseFullName ?? "??";
                 bool includePublication = !Settings.zibcontext.zibPrefix.Contains("template");
                 foreach (EA.Diagram currentDiagram in p.Diagrams)
                 {
@@ -1505,7 +1510,7 @@ namespace Zibs
                     projectConstantsDict["DCM_Name"] = zFullname;
                     projectConstantsDict["DCM_PublicationStatus"] = zibPublicationStatus;
                     projectConstantsDict["DCM_PublicationDate"] = zibPublicationDate;
-                    projectConstantsDict["HCIM_Release"] = Settings.zibcontext.publicatie ?? "";
+                    projectConstantsDict["HCIM_Release"] = Settings.releasecontext.releaseFullName ?? "";
 
                     string SQLString = "";
                     foreach (KeyValuePair<string, string> pC in projectConstantsDict)
@@ -1525,7 +1530,7 @@ namespace Zibs
                     projectConstantsDict.Add("DCM_Name", zFullname);
                     projectConstantsDict.Add("DCM_PublicationStatus", zibPublicationStatus);
                     projectConstantsDict.Add("DCM_PublicationDate", zibPublicationDate);
-                    projectConstantsDict.Add("HCIM_Release", Settings.zibcontext.publicatie ?? "");
+                    projectConstantsDict.Add("HCIM_Release", Settings.releasecontext.releaseFullName ?? "");
 
                     string SQLString = "";
                     foreach (KeyValuePair<string, string> pC in projectConstantsDict)
@@ -2631,18 +2636,26 @@ namespace Zibs
 
             /// <summary>
             /// Geeft op grond van de naam van de zib de te gebruiken filenaam voor de wikilinks en -pagina's aan in het format 'naam'-v'versie'('publicatie''taal')
+            /// 20-12-2025:  Behouden pre-releases
+            /// Parameter releaseNumber waarmee de wikiLink: [zibnaam]-v[versie]([releaseName]{-{releaseNumber]}[ziblanguage]) wordt
             /// </summary>
             /// <param name="zibName"></param>
+            /// <param name="zibLanguage"></param>
+            /// <param name="releaseName"></param>
+            /// <param name="releaseNumber"></param>
+            /// <param name="includePublication"></param>
             /// <returns></returns>
-            public static string wikiLink(string zibName, textLanguage zibLanguage, string publication, bool includePublication = true)
+            public static string wikiLink(string zibName, textLanguage zibLanguage, string releaseName, string releaseNumber, bool includePublication = true)
             {
-                return shortName(zibName) + "-v" + Version(zibName) + "(" + (includePublication? publication : "") +
+                string releaseFullName = Settings.GetReleaseFullName(int.Parse(releaseName), int.Parse(releaseNumber));
+                return shortName(zibName) + "-v" + Version(zibName) + "(" + (includePublication? releaseFullName : "") +
                         (zibLanguage == textLanguage.Multi ? "" : zibLanguage.ToString()) + ")";
                 //      (zibLanguage == textLanguage.Multi ? "" : Settings.zibcontext.pubLanguage.ToString()) + ")";
             }
+
             public static string wikiLink(string zibName, textLanguage zibLanguage, bool includePublication = true)
-            { 
-                return wikiLink(zibName, zibLanguage, Settings.zibcontext.publicatie ?? "??", includePublication);
+            {
+                return wikiLink(zibName, zibLanguage, Settings.zibcontext.publicatie ?? "??", Settings.zibcontext.PreReleaseNumber.ToString(), includePublication);
 /*                return shortName(zibName) + "-v" + Version(zibName) + "(" + (Settings.zibcontext.publicatie ?? "??") +
                         (zibLanguage == textLanguage.Multi ? "" : zibLanguage.ToString()) + ")"; */
                 //      (zibLanguage == textLanguage.Multi ? "" : Settings.zibcontext.pubLanguage.ToString()) + ")";
@@ -2654,6 +2667,7 @@ namespace Zibs
             /// Geeft op grond van de naam van de zib de te gebruiken filenaam aan in het format 'naam'-v'versie'('taal')
             /// </summary>
             /// <param name="zibName"></param>
+            /// <param name="zibLanguage"></param>
             /// <returns></returns>
             public static string fileName(string zibName, textLanguage zibLanguage)
             {
@@ -2665,14 +2679,18 @@ namespace Zibs
 
             /// <summary>
             /// Geeft op grond van de naam van de zib de te gebruiken filenaam aan in het format 'naam'-v'versie'('publicatie''taal')
+            /// 20-12-2025:  Behouden pre-releases
+            /// Toegevoegd releaseNumber waarmee de filenaam: [zibnaam]-v[versie]([releaseName]{-{releaseNumber]}[ziblanguage]) wordt
             /// </summary>
             /// <param name="zibName"></param>
+            /// <param name="zibLanguage"></param>
             /// <returns></returns>
             /// 
             public static string fileName2(string zibName, textLanguage zibLanguage)
             {
+                string releaseFullName = Settings.zibcontext.publicatie ?? "??" + (Settings.zibcontext.PreReleaseNumber == 0 ? "" : ("-" + Settings.zibcontext.PreReleaseNumber.ToString()));
                 return Name(zibName) + "-v" + Version(zibName) +
-                        (zibLanguage == textLanguage.Multi ? "" : ("(" + (Settings.zibcontext.publicatie ?? "??") + zibLanguage.ToString()) + ")");
+                        (zibLanguage == textLanguage.Multi ? "" : ("(" + releaseFullName + zibLanguage.ToString()) + ")");
                 //      (zibLanguage == textLanguage.Multi ? "" : ("(" + Settings.zibcontext.pubLanguage.ToString()) + ")");
             }
         }

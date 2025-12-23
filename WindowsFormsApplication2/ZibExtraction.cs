@@ -194,6 +194,11 @@ namespace Zibs
                         "Applicatie kan niet gestart worden", "Foutmelding", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                 }
+                else 
+                    // Schrijf de StartConfig meteen weer weg. Hiermee kunnen nieuwe parameters die met default gemaakt zijn opgeslagen worden.
+                    // Deze kunnen dan later in de xml file handmatig aangepast worden
+                    Settings.writeStartConfig();
+
 
                 /// Voorkom kip en ei problemen door deze locaties eerst te vullen als ze leeg zijn
                 if (string.IsNullOrWhiteSpace(Settings.userPreferences.ImageLocation) ||
@@ -1254,7 +1259,7 @@ namespace Zibs
                             break;
                     }
 
-                // 3-10-21 Test op aanwezigheid project tags en waarschuwing toegevoegd
+               // 3-10-21 Test op aanwezigheid project tags en waarschuwing toegevoegd
 
                 if (Settings.releasecontext.releaseYear == 0 || Settings.releasecontext.preReleaseNumber == -1)
                 {
@@ -1265,10 +1270,12 @@ namespace Zibs
                 }
             
                 // 3-10-21 Uit de if loop gehaald en naar voren verplaatst
-                var releaseData = releaseList.Where(x => x[0] == Settings.releasecontext.releaseYear.ToString())?.FirstOrDefault();
-                if (Settings.releasecontext.releaseYear != 0 && Settings.releasecontext.releaseYear.ToString() != Settings.zibcontext.publicatie)
+                // 23-12-2025 test op prereleaseNumber toegevoegd
+                var releaseData = releaseList.Where(x => x[0] == Settings.releasecontext.releaseYear.ToString() && x[4] == Settings.releasecontext.preReleaseNumber.ToString())?.FirstOrDefault();
+                if ((Settings.releasecontext.releaseYear != 0 && Settings.releasecontext.releaseYear.ToString() != Settings.zibcontext.publicatie) ||
+                    (Settings.releasecontext.preReleaseNumber !=Settings.zibcontext.PreReleaseNumber))
                 {
-                    MessageBox.Show("Het publicatiejaar in de gekozen configuratie komt niet\r\novereen met het publicatiejaar in de projectfile\r\n"
+                    MessageBox.Show("De publicatie in de gekozen configuratie komt niet\r\novereen met de publicatie in de projectfile\r\n"
                         + "Het publicatiejaar en overige publicatiegegevens worden aangepast aan de projectfile gegevens\r\n"
                         + "Projectfile meldt '" + Settings.releasecontext.releaseYear.ToString()
                         + (Settings.releasecontext.preReleaseNumber == 0 ? "" : ("-" + Settings.releasecontext.preReleaseNumber.ToString()))
@@ -1279,20 +1286,24 @@ namespace Zibs
 
                     if (releaseData == null)
                     {
-                        MessageBox.Show("Er is geen publicatie configuratie gevonden die\r\novereenkomt met het publicatiejaar in de projectfile\r\n"
+                        MessageBox.Show("Er is geen publicatie configuratie gevonden die\r\novereenkomt met de publicatie in de projectfile\r\n"
                                    + "Maak deze eerst aan om de goede publicatie gegevens in de zib's te verwerken\r\n"
-                                   + "De configuratie is niet aangepast.", "Let op!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                                   + "De configuratie wordt op de laatste (pre-)publicatie gezet.", "Let op!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
+                        // Geen publicatie gevonden, default wordt de laatste. Negeer bovendien de projectfile gegevens
+
+                        releaseData = releaseList[releaseList.Count -1] ;
+                        Settings.releasecontext.releaseYear = int.Parse(releaseData[0]);
+                        Settings.releasecontext.preReleaseNumber = int.Parse(releaseData[4]);
+                        Settings.releasecontext.releaseType = releaseData[4] == "0" ? "Release" : "PreRelease";
+                        //                        return;
+                    }
 
                     Settings.zibcontext.publicatie = Settings.releasecontext.releaseYear.ToString();
                     Settings.zibcontext.ReleaseInfo = releaseData[1];
                     Settings.zibcontext.PreReleaseNumber =int.Parse(releaseData[4]);
                     Settings.wikicontext.ArtDecorRepository = releaseData[2];
                     Settings.wikicontext.ArtDecorProjectOID = releaseData[3];
-
-
 
                     e = new EventWithStringArgs(Settings.zibcontext.publicatie + (Settings.zibcontext.PreReleaseNumber == 0 ? "" : ("-" + Settings.zibcontext.PreReleaseNumber.ToString())));
                     Config_ReleaseChanged(this, e);
@@ -1307,7 +1318,8 @@ namespace Zibs
                     Config_ReleaseChanged(this, e);
                     Settings.saveToFile(configName, locationBase);
                 }
-
+                // Deze melding is overbodig geworden omdat deze test nu al in de eerste test zit
+                /*
                 if (Settings.zibcontext.PreReleaseNumber != Settings.releasecontext.preReleaseNumber)
                 {
                     MessageBox.Show("De prerelease informatie van de configuratie en uit de projectfile komen niet overeen\r\n"
@@ -1316,7 +1328,12 @@ namespace Zibs
                                + "\r\nPas om de goede publicatie gegevens in de zib's te verwerken eerst de projectfile of de publicatie aan",
                                 "Let op!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                */
 
+                // 22-12-2025: Behouden prereleases: Settings.releasecontext.releaseFullName en Settings.application.MultipleReleasesFromYear om de wiki pagina naamgeving 
+                // aan te passen zodat er meer dan een (pre-)publicatie per jaar mogelijk te maken en toch compatible met bestaande releases mogelijk te maken.
+
+                Settings.releasecontext.releaseFullName = Settings.GetReleaseFullName(Settings.releasecontext.releaseYear, Settings.releasecontext.preReleaseNumber);
 
                 return;
             }

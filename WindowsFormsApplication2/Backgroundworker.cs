@@ -82,14 +82,14 @@ namespace Zibs.ZibExtraction
                         reportProgressText(ErrorType.general, "\r\n== Check of zibs tot de publicatie behoren\r\n", worker);
                         foreach (EA.Package _zib in zibList)
                         {
-                            bool inRelease = IsInRelease(_zib, Settings.zibcontext.publicatie, checkLanguage);
+                            bool inRelease = IsInRelease(_zib, Settings.zibcontext.publicatie, Settings.zibcontext.PreReleaseNumber.ToString(), checkLanguage);
                             if (!inRelease)
                             {
-                                reportProgressText(ErrorType.warning, "Zib " + _zib.Name + " is niet geregistreerd als onderdeel van de " + checkLanguage.ToString() + " publicatie " + Settings.zibcontext.publicatie + " -----\r\n", worker);
+                                reportProgressText(ErrorType.warning, "Zib " + _zib.Name + " is niet geregistreerd als onderdeel van de " + checkLanguage.ToString() + " publicatie " + Settings.releasecontext.releaseFullName + " -----\r\n", worker);
                                 errorsFound = true;
                             }
                         }
-                        if (!errorsFound) reportProgressText(ErrorType.information, "Alle geselecteerde zibs zijn onderdeel van publicatie " + Settings.zibcontext.publicatie + "\r\n", worker);
+                        if (!errorsFound) reportProgressText(ErrorType.information, "Alle geselecteerde zibs zijn onderdeel van publicatie " + Settings.releasecontext.releaseFullName + "\r\n", worker);
                         reportProgressText(ErrorType.general, "== Einde check\r\n", worker);
 
                         inReleaseChecked = true;
@@ -613,7 +613,7 @@ namespace Zibs.ZibExtraction
             else if (succes == 12)
                 reportProgressText(ErrorType.error, "Zib niet in release gevonden. Voeg deze eerst aan de release toe\r\n", sender);
             else if (succes == 13)
-                reportProgressText(ErrorType.error, "Eén of meer zib's waar naar verwezen wordt, zijn geen deel van de publicatie " + Settings.zibcontext.publicatie + "\r\n", sender);
+                reportProgressText(ErrorType.error, "Eén of meer zib's waar naar verwezen wordt, zijn geen deel van de publicatie " + Settings.releasecontext.releaseFullName + "\r\n", sender);
             else if (succes == 4)
                 reportProgressText(ErrorType.information, "De bouwsteen heeft geen verwijzingen\r\n", sender);
             else if (succes == 3)
@@ -644,7 +644,7 @@ namespace Zibs.ZibExtraction
         private bool createWikiTOCpage(Dictionary<string, bool> options, object sender)
         {
             if (tocDone) return true;
-            reportProgressText(ErrorType.general, "\r\n== Aanmaken inhoudsopgave publicatie " + Settings.zibcontext.publicatie + " en issue pagina\r\n", sender);
+            reportProgressText(ErrorType.general, "\r\n== Aanmaken inhoudsopgave publicatie " + Settings.releasecontext.releaseFullName + " en issue pagina\r\n", sender);
 
             string transcludeName;
 
@@ -697,7 +697,7 @@ namespace Zibs.ZibExtraction
                 }
                 sb.AppendLine("|}");
             }
-            string fileName = tm.getLabel("wikiReleasePage") + "_" + Settings.zibcontext.publicatie + "(" + Settings.zibcontext.pubLanguage.ToString() + ")_Section" + Settings.wikicontext.tocSection + ".wiki";
+            string fileName = tm.getLabel("wikiReleasePage") + "_" + Settings.releasecontext.releaseFullName + "(" + Settings.zibcontext.pubLanguage.ToString() + ")_Section" + Settings.wikicontext.tocSection + ".wiki";
             File.WriteAllText(Path.Combine(Settings.userPreferences.WikiLocation, fileName), sb.ToString());
 
             // Schrijf de transclude pagina met release informatie.
@@ -727,9 +727,10 @@ namespace Zibs.ZibExtraction
         {
             StringBuilder transcludeText = new StringBuilder();
             List<string[]> allReleases = Settings.XGenConfig.listReleases();
+            Settings.OrderReleaseList(ref allReleases, 0, 1);
             if (allReleases.Count > 0)
             {
-                string lastRelease = allReleases.Where(x => x[2] == "0").Max(y => y[0]);  //17-05-23 experimental
+                string lastRelease = allReleases.Where(x => x[1] == "0").Max(y => y[0]);  //17-05-23 experimental
                 string lastPreRelease = allReleases.Max(x => x[0]);
                 string lastPreReleasePage = tm.getWikiLabel("wikiReleasePage") + "_" + lastPreRelease + "(" + Settings.zibcontext.pubLanguage + ")";
                 string lastReleasePage = tm.getWikiLabel("wikiReleasePage") + "_" + lastRelease + "(" + Settings.zibcontext.pubLanguage + ")";
@@ -881,10 +882,10 @@ namespace Zibs.ZibExtraction
         }
 
 
-        private bool IsInRelease(EA.Package eaZib, string releaseDescription, textLanguage language)
+        private bool IsInRelease(EA.Package eaZib, string releaseDescription, string releaseNumber, textLanguage language)
         {
             List<string> zibVersions;
-            List<string[]> zibsInRelease = Settings.XGenConfig.getZibsInRelease(releaseDescription, Settings.zibcontext.PreReleaseNumber.ToString(), language);
+            List<string[]> zibsInRelease = Settings.XGenConfig.getZibsInRelease(releaseDescription, releaseNumber, language);
             if (zibsInRelease.Count > 0)
             {
                 zibVersions = zibsInRelease.Where(x => x[1] == zibName.shortName(eaZib.Name))?.Select(y => y[2]).ToList();
