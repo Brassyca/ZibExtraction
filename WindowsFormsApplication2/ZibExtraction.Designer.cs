@@ -46,6 +46,7 @@
             this.zibCodestelselBeheerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zibIdBeheerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuratiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportZibLijstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.overZibExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helppaginaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -201,7 +202,8 @@
             this.codecheckToolStripMenuItem,
             this.zibCodestelselBeheerToolStripMenuItem,
             this.zibIdBeheerToolStripMenuItem,
-            this.configuratiesToolStripMenuItem});
+            this.configuratiesToolStripMenuItem,
+            this.exportZibLijstToolStripMenuItem});
             this.beheerToolStripMenuItem.Name = "beheerToolStripMenuItem";
             this.beheerToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.beheerToolStripMenuItem.Text = "Beheer";
@@ -249,6 +251,16 @@
             this.configuratiesToolStripMenuItem.Text = "Configuraties";
             this.configuratiesToolStripMenuItem.Click += new System.EventHandler(this.configuratiesToolStripMenuItem_Click);
             // 
+            // exportZibLijstToolStripMenuItem
+            // 
+            this.exportZibLijstToolStripMenuItem.Enabled = false;
+            this.exportZibLijstToolStripMenuItem.Name = "exportZibLijstToolStripMenuItem";
+            this.exportZibLijstToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.exportZibLijstToolStripMenuItem.Text = "Export zib lijst";
+            this.exportZibLijstToolStripMenuItem.ToolTipText = "Exporteer lijst met zibs uit deze projectfile tbv confguratie  van een nieuwe (pr" +
+    "e-)publicatie";
+            this.exportZibLijstToolStripMenuItem.Click += new System.EventHandler(this.exportZibLijstToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -294,7 +306,7 @@
             this.Result.Multiline = true;
             this.Result.Name = "Result";
             this.Result.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.Result.Size = new System.Drawing.Size(781, 222);
+            this.Result.Size = new System.Drawing.Size(781, 224);
             this.Result.TabIndex = 10;
             // 
             // contextMenuResult
@@ -382,7 +394,7 @@
             this.splitContainer2.Panel2.Controls.Add(this.gbSettings);
             this.splitContainer2.Panel2.Padding = new System.Windows.Forms.Padding(15);
             this.splitContainer2.Size = new System.Drawing.Size(781, 641);
-            this.splitContainer2.SplitterDistance = 222;
+            this.splitContainer2.SplitterDistance = 224;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -1061,6 +1073,7 @@
             private System.Windows.Forms.Label lblProgressBar;
             private System.Windows.Forms.Label lbLogLevel;
             private System.Windows.Forms.DomainUpDown dudLogLevel;
+            private System.Windows.Forms.ToolStripMenuItem exportZibLijstToolStripMenuItem;
         }
     }
 }

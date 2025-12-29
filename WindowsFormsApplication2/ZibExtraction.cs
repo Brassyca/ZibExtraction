@@ -62,6 +62,8 @@ namespace Zibs
             private bool forceDirInput = false;
             private bool extendedLogging = false;
 
+            private string qW;
+
 
             // ====================
             // Constructor
@@ -461,6 +463,8 @@ namespace Zibs
                 errorLog.Clear();
                 this.openToolStripMenuItem.Enabled = true;
                 this.configuratieToolStripMenuItem.Enabled = false;
+                this.exportZibLijstToolStripMenuItem.Enabled = false;
+
                 this.btnActie.Enabled = false;
                 this.StatusLabel.Text = "EAP file closed";
                 EAStatus.Refresh();
@@ -513,6 +517,114 @@ namespace Zibs
                 this.lblExampleDirValue.Text = Settings.userPreferences.ExampleLocation.EllipsisFilename(lblExampleDirValue.MaximumSize, lblExampleDirValue.Font);
                 this.lblPrefixValue.Text = Settings.zibcontext.zibPrefix;
                 config.Dispose();
+            }
+
+            /// <summary>
+            /// Maakt op grond van de geopende projectfile een lijst aan van de in de projectfile aanwezige zibs
+            /// De selectie identificeert alle packages die een stereotype 'DCM' hebben behalve die waar in de naam de string 'template' voorkomt.
+            /// Let op! Dit selectiecriterium is niet waterdicht. Als de projectfiel en map bevat met vervallen zibs of probeersels zullen deze ook in de lijst komen.
+            /// De geproduceerde lijst kan gebruik worden om in een keer een nieuwe (pre-)publicatie te vullen.
+            /// De XMP file bevat OID, versie, prefix  en de NL en EN naam van de zib
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            private void exportZibLijstToolStripMenuItem_Click(object sender, EventArgs e)
+            {
+                const string SQL = "SELECT p3.Value  AS OID, p2.Value AS Version, p1.Value AS Name, c1.Alias AS Alias " +
+                                   "FROM (SELECT * FROM t_object o1 WHERE Stereotype = \"DCM\") c1 " +
+                                    "INNER JOIN t_objectproperties p1 ON {0}c1.Object_ID = {0}p1.Object_ID " +
+                                    "INNER JOIN t_objectproperties p2 ON {0}c1.Object_ID = {0}p2.Object_ID " +
+                                    "INNER JOIN t_objectproperties p3 ON {0}c1.Object_ID = {0}p3.Object_ID " +
+                                    "WHERE (p1.Property = \"DCM::Name\" AND NOT(p1.Value LIKE \"{1}template{1}\")) " +
+                                    "AND p2.Property = \"DCM::Version\" " +
+                                    "AND p3.Property = \"DCM::Id\" " +
+                                    "ORDER BY p1.Value";
+                string SQLresult;
+                List<string[]> results = new List<string[]>();
+                List<string> xmlResult = new List<string>();
+                string fileName = "ZibsInProjectFile.xml";
+
+
+                try
+                {
+                    SQLresult = r.SQLQuery(string.Format(SQL, qW == "*" ? "CStr" : "", qW));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                XDocument doc = XDocument.Parse(SQLresult);
+                if (doc.Descendants("Row").Count() != 0)
+                {
+                    var rows = doc.Descendants("Row").Select(y => new string[] { y.Element("OID").Value, y.Element("Version").Value, y.Element("Name").Value, y.Element("Alias").Value});
+                    string _name, _nameEN, _prefix;
+                    foreach (string[] row in rows)
+                    {
+                        if (row[3].StartsWith("EN"))
+                        {
+                            _name = row[2].Substring(row[2].LastIndexOf(".") + 1);
+                            _nameEN = zibName.shortName(row[3].Replace("EN:", "").Trim());
+                            _prefix = zibName.Prefix(row[3].Replace("EN:", "").Trim());
+                        }
+                        else
+                        {
+                            _nameEN = row[2].Substring(row[2].LastIndexOf(".") + 1);
+                            _name = zibName.shortName(row[3].Replace("NL:", "").Trim());
+                            _prefix = zibName.Prefix(row[3].Replace("NL:", "").Trim());
+                        }
+
+                        results.Add(new string[5] { row[0], row[1], _prefix, _name, _nameEN });
+                    }
+                }
+
+                results = results.OrderBy(x => x[3]).ToList();
+
+                XDocument XDoc;
+                if (results.Count() != 0)
+                {
+                    XDoc = new XDocument(
+                                 new XDeclaration("1.0", "", ""),
+                                 new XComment("ZIB importbestand voor nieuwe (pre-)publicaties tbv ZIBConfiguration")
+                    );
+                    XElement Xsets = new XElement("zibimport",
+                                        new XElement("zibs"));
+
+                    foreach (string[] result in results)
+                    {
+                        Xsets.Element("zibs").Add(new XElement("zib",
+                            new XAttribute("id", result[0]),
+                            new XAttribute("version", result[1]),
+                            new XAttribute("prefix", result[2]),
+                                new XElement("names",
+                                    new XElement("name",
+                                        new XAttribute("language", "NL"),
+                                             result[3]
+                                             ),
+                                    new XElement("name",
+                                        new XAttribute("language", "EN"),
+                                             result[4]
+                                             ))));
+                    }
+                    XDoc.Add(Xsets);
+
+                    SaveFileDialog d = new SaveFileDialog();
+                    string filter = "*.xml";
+                    d.Filter = "Release exportbestanden (" + filter + ")|" + filter + "|All files (*.*)|*.*";
+                    d.FilterIndex = 1;
+                    d.Title = "selecteer export file";
+                    d.OverwritePrompt = true;
+                    d.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    d.FileName = "ZibsInProject_" + ((ToolStripMenuItem)sender).Tag.ToString();
+
+                    if (d.ShowDialog() == DialogResult.OK)
+                    {
+                        XDoc.Save(d.FileName);
+                        MessageBox.Show("Lijst met zibs in deze projectfile is op geslagen als " + d.FileName);
+                    }
+                }
+                else
+                    MessageBox.Show("Query op projectfile heeft geen zibs opgeleverd", "Geen zibs gevonden", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             private void taallabelsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1358,7 +1470,7 @@ namespace Zibs
                 configName = confDiag.Config;
 
                 if (configName == "") return;
-                
+
                 Settings.loadConfiguration(configName);
                 this.lblConfigValue.Text = configName;
                 createSessionBaseDirectory();
@@ -1418,11 +1530,11 @@ namespace Zibs
                 // tot hier
 
                 connectionString = r.ConnectionString;// Aangepast omdat DatabaseValid ref nu ref is. 
-                if (!EAUtils.DatabaseValid(ref connectionString, out string dbType, out string dbConn))
+                if (!EAUtils.DatabaseValid(ref connectionString, out string dbType, out string dbConn, out qW))
                 ///if (!EAUtils.DatabaseValid(r.ConnectionString, out string dbType, out string dbConn))
-                    {
-                        MessageBox.Show("Niet ondersteund type database: "+ dbConn + ": " + dbType, "Database fout",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                {
+                    MessageBox.Show("Niet ondersteund type database: " + dbConn + ": " + dbType, "Database fout",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                     sluitenToolStripMenuItem.PerformClick();
                     return;
                 }
@@ -1450,7 +1562,7 @@ namespace Zibs
                 if (languageButtons.Count() > 0)
                     languageButtons.First().Text = zibActions["SingleLanguage"].description + " (" + Settings.zibcontext.pubLanguage.ToString() + ")";
                 else
-                    MessageBox.Show("Geen Language button gevonden"); 
+                    MessageBox.Show("Geen Language button gevonden");
 
                 //          Lees de RFT Templates in
                 templateList = getRtfTemplates(r);
@@ -1466,7 +1578,12 @@ namespace Zibs
                 lblWikiSiteValue.Text = Settings.wikicontext.wikiBaserurl;
 
                 // geef de configuratie dialoog vrij
-                this.configuratieToolStripMenuItem.Enabled = true;
+                this.configuratieToolStripMenuItem.Enabled = true; 
+                
+                this.exportZibLijstToolStripMenuItem.Enabled = true;
+
+                // zet de filenaam in de tag van het export menu item om dit in de exportfilenaam te kunnen gebruiken
+                exportZibLijstToolStripMenuItem.Tag = Path.GetFileNameWithoutExtension(fileCopy) ?? "";
 
                 eapFileOpen = true;
                 gBAction_CheckedChanged(btnActie, EventArgs.Empty);
@@ -1769,6 +1886,7 @@ namespace Zibs
                     isBatchable = _isBatchable;
                 }      
             }
+
 
 
             // ======================
