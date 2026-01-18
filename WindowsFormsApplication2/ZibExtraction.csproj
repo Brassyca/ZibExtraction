@@ -115,9 +115,8 @@
       <HintPath>..\..\..\..\..\..\..\Program Files\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="JiraClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ExtensionClasses\JiraClient\bin\$(Configuration)\JiraClient.dll</HintPath>
+    <Reference Include="JiraJsonClient">
+      <HintPath>..\..\ExtensionClasses\JiraClient\bin\Debug\JiraJsonClient.dll</HintPath>
     </Reference>
     <Reference Include="OpenXMLSpreadsheet">
       <HintPath>..\..\OpenXMLSpreadsheet\OpenXMLSpreadsheet\bin\$(Configuration)\OpenXMLSpreadsheet.dll</HintPath>

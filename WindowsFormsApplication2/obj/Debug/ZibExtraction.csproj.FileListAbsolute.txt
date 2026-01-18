@@ -77,7 +77,6 @@ C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsForms
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\CodeManagement.exe
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\EAUtils.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ExtensionClasses.dll
-C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\JiraClient.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\OpenXMLSpreadsheet.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\RestApiClient.dll
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\StaticClasses.dll
@@ -99,7 +98,6 @@ C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsForms
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\CodeManagement.exe.config
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\EAUtils.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\ExtensionClasses.pdb
-C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\JiraClient.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\OpenXMLSpreadsheet.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\RestApiClient.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\RestApiClient.dll.config
@@ -140,3 +138,5 @@ C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsForms
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.exe
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.pdb
 C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\obj\Debug\ZibExtraction.exe.config
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\JiraJsonClient.dll
+C:\Users\Spruyt\Documents\Visual Studio 2019\Projects\ZibExtraction\WindowsFormsApplication2\bin\Debug\JiraJsonClient.pdb
