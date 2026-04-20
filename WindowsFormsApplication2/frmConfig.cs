@@ -38,6 +38,10 @@ namespace Zibs
 
             string ExampleFilesText;
 
+            List<string> _numberList;
+
+            bool doNotHandleEvent = false;
+
 
 
             public bool StartupConfigChanged { get; private set; } = false;
@@ -112,22 +116,30 @@ namespace Zibs
                 tBSection.Text = Settings.wikicontext.tocSection.ToString();
                 tbLegendpage.Text = Settings.wikicontext.LegendPage ?? "";
                 publicationLabelLeft = lblReleaseName.Left;
-                List<string> _releaseList = parent.releaseList.Select(x => x[0]).ToList();
+                List<string> _releaseList = parent.releaseList.Select(x => x[0]).Distinct().ToList(); //Haal dubbel jaar entries er uit
+                doNotHandleEvent = true;
                 cbReleaseName.DataSource = _releaseList;
+                doNotHandleEvent = false;
 
                 //tbReleaseInfo.Text = Settings.zibcontext.ReleaseInfo ?? "";
                 cbReleaseName.Text = Settings.zibcontext.publicatie ?? "";
-                tbNumber.Text = Settings.zibcontext.PreReleaseNumber.ToString() ?? "";
+
+                _numberList = parent.releaseList.Where(x => x[0] == Settings.zibcontext.publicatie).Select(y => y[4]).ToList();
+
+                doNotHandleEvent = true;
+                cbReleaseNumber.DataSource = _numberList;
+                doNotHandleEvent = false;
+
+                cbReleaseNumber.Text = Settings.zibcontext.PreReleaseNumber.ToString() ?? "";
+
                 if (Settings.zibcontext.PreReleaseNumber == 0)
                 {
-                    tbNumber.Visible = false;
                     lblNumber.Visible = false;
                     lblReleaseName.Text = "Publicatie:";
                     lblReleaseName.Left = publicationLabelLeft;
                 }
                 else
                 {
-                    tbNumber.Visible = true;
                     lblNumber.Visible = true;
                     lblReleaseName.Text = "Pre-publicatie:";
                     lblReleaseName.Left = publicationLabelLeft - 18;
@@ -201,7 +213,7 @@ namespace Zibs
                     Settings.zibcontext.ReleaseInfo = tbReleaseInfo.Text;
                     Settings.zibcontext.publicatie = cbReleaseName.Text;
                     // Toegevoegd 15-12-2025
-                    Settings.zibcontext.PreReleaseNumber = int.Parse(tbNumber.Text);
+                    Settings.zibcontext.PreReleaseNumber = int.Parse( cbReleaseNumber.Text);
 
                     Settings.wikicontext.ArtDecorRepository = lblADRepository.Text;
                     Settings.wikicontext.ArtDecorProjectOID = parent.releaseList.Count > 0 ? parent.releaseList[cbReleaseName.SelectedIndex][3] : "";
@@ -395,28 +407,46 @@ namespace Zibs
 
             private void cbReleaseName_SelectedIndexChanged(object sender, EventArgs e)
             {
+                if (doNotHandleEvent) return;
                 // 12-12-2025 this.OnReleaseChanged(new EventWithStringArgs(cbReleaseName.Text));
-                tbReleaseInfo.Text = parent.releaseList[cbReleaseName.SelectedIndex][1];
-                lblADRepository.Text = parent.releaseList[cbReleaseName.SelectedIndex][2];
+                string[] currentRelease = parent.releaseList.Where(x => x[0] == cbReleaseName.Text).FirstOrDefault();
+                tbReleaseInfo.Text = currentRelease[1];
+                lblADRepository.Text = currentRelease[2];
 
-                tbNumber.Text = parent.releaseList[cbReleaseName.SelectedIndex][4];
+                _numberList = parent.releaseList.Where(x => x[0] == currentRelease[0]).Select(y => y[4]).ToList();
+                doNotHandleEvent = true;
+                cbReleaseNumber.DataSource = _numberList;
+                doNotHandleEvent = false;
+                cbReleaseNumber.Text = parent.releaseList[cbReleaseName.SelectedIndex][4];
                 if (int.Parse(parent.releaseList[cbReleaseName.SelectedIndex][4]) == 0)
                 {
-                    tbNumber.Visible = false;
                     lblNumber.Visible = false;
                     lblReleaseName.Text = "Publicatie:";
                     lblReleaseName.Left = publicationLabelLeft;
                 }
                 else
                 {
-                    tbNumber.Visible = true;
                     lblNumber.Visible = true;
                     lblReleaseName.Text = "Pre-publicatie:";
                     lblReleaseName.Left = publicationLabelLeft - 18;
                 }
-                this.OnReleaseChanged(new EventWithStringArgs(cbReleaseName.Text + (lblNumber.Visible ? ("-" + tbNumber.Text) : "")));
+                this.OnReleaseChanged(new EventWithStringArgs(cbReleaseName.Text + (lblNumber.Visible ? ("-" + cbReleaseNumber.Text) : "")));
 
             }
+
+            private void cbReleaseNumber_SelectedIndexChanged(object sender, EventArgs e)
+            {
+                if (doNotHandleEvent) return;
+                int i = ((ComboBox)sender).SelectedIndex;
+                string ai = ((ComboBox)sender).Text;
+                string[] currentRelease = parent.releaseList.Where(x => x[0] == cbReleaseName.Text && x[4] == cbReleaseNumber.Text).FirstOrDefault();
+                tbReleaseInfo.Text = currentRelease[1];
+                lblADRepository.Text = currentRelease[2];
+
+                this.OnReleaseChanged(new EventWithStringArgs(cbReleaseName.Text + (lblNumber.Visible ? ("-" + cbReleaseNumber.Text) : "")));
+            }
+
+
 
             private void pubLanguage_Changed(object sender, EventArgs e)
             {
@@ -501,6 +531,7 @@ namespace Zibs
                     this.tbRTFFiles.Text = f.SelectedPath;
             }
 
+
             private void tbXMLFiles_TextChanged(object sender, EventArgs e)
             {
                 XMLLocationChanged = true;
@@ -561,11 +592,11 @@ namespace Zibs
                     controls[0].Location = new Point(controls[0].Location.X, controls[1].Location.Y + Scale(3));
                     rowCount++; 
                 }
-                tbReleaseInfo.Width = tbNumber.Right - maxLabelLength;
-                tbNumber.Width = Scale(tbNumber.Width);
-                tbNumber.Height = Scale(tbNumber.Height);
-                tbNumber.Location = new Point(tbNumber.Location.X, tbCategory.Location.Y);
-                lblNumber.Location = new Point(tbNumber.Left - lblNumber.Width , lblCategory.Location.Y);
+                tbReleaseInfo.Width = cbReleaseNumber.Right - maxLabelLength;
+                cbReleaseNumber.Width = Scale(cbReleaseNumber.Width);
+                cbReleaseNumber.Height = Scale(cbReleaseNumber.Height);
+                cbReleaseNumber.Location = new Point(cbReleaseNumber.Location.X, tbCategory.Location.Y);
+                lblNumber.Location = new Point(cbReleaseNumber.Left - lblNumber.Width , lblCategory.Location.Y);
                 cbReleaseName.Width = Scale(cbReleaseName.Width);
                 cbReleaseName.Height = Scale(cbReleaseName.Height);
                 cbReleaseName.Location = new Point(lblNumber.Left - cbReleaseName.Width, tbCategory.Location.Y - 1);  

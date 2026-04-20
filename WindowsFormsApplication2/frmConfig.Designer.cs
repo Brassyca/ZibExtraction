@@ -34,9 +34,9 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.gbZIBs = new System.Windows.Forms.GroupBox();
+            this.cbReleaseNumber = new System.Windows.Forms.ComboBox();
             this.tbReleaseInfo = new System.Windows.Forms.TextBox();
             this.lblNumber = new System.Windows.Forms.Label();
-            this.tbNumber = new System.Windows.Forms.TextBox();
             this.rbNL = new System.Windows.Forms.RadioButton();
             this.rbEN = new System.Windows.Forms.RadioButton();
             this.lblReleaseLanguage = new System.Windows.Forms.Label();
@@ -141,9 +141,9 @@
             // 
             // gbZIBs
             // 
+            this.gbZIBs.Controls.Add(this.cbReleaseNumber);
             this.gbZIBs.Controls.Add(this.tbReleaseInfo);
             this.gbZIBs.Controls.Add(this.lblNumber);
-            this.gbZIBs.Controls.Add(this.tbNumber);
             this.gbZIBs.Controls.Add(this.rbNL);
             this.gbZIBs.Controls.Add(this.rbEN);
             this.gbZIBs.Controls.Add(this.lblReleaseLanguage);
@@ -164,6 +164,15 @@
             this.gbZIBs.Tag = "";
             this.gbZIBs.Text = "Publicatie informatie";
             // 
+            // cbReleaseNumber
+            // 
+            this.cbReleaseNumber.FormattingEnabled = true;
+            this.cbReleaseNumber.Location = new System.Drawing.Point(555, 18);
+            this.cbReleaseNumber.Name = "cbReleaseNumber";
+            this.cbReleaseNumber.Size = new System.Drawing.Size(29, 21);
+            this.cbReleaseNumber.TabIndex = 14;
+            this.cbReleaseNumber.SelectedIndexChanged += new System.EventHandler(this.cbReleaseNumber_SelectedIndexChanged);
+            // 
             // tbReleaseInfo
             // 
             this.tbReleaseInfo.Location = new System.Drawing.Point(76, 42);
@@ -174,20 +183,11 @@
             // lblNumber
             // 
             this.lblNumber.AutoSize = true;
-            this.lblNumber.Location = new System.Drawing.Point(553, 22);
+            this.lblNumber.Location = new System.Drawing.Point(540, 22);
             this.lblNumber.Name = "lblNumber";
             this.lblNumber.Size = new System.Drawing.Size(10, 13);
             this.lblNumber.TabIndex = 12;
             this.lblNumber.Text = "-";
-            // 
-            // tbNumber
-            // 
-            this.tbNumber.Location = new System.Drawing.Point(567, 19);
-            this.tbNumber.Name = "tbNumber";
-            this.tbNumber.ReadOnly = true;
-            this.tbNumber.Size = new System.Drawing.Size(16, 20);
-            this.tbNumber.TabIndex = 11;
-            this.tbNumber.Text = "0";
             // 
             // rbNL
             // 
@@ -228,7 +228,7 @@
             // cbReleaseName
             // 
             this.cbReleaseName.FormattingEnabled = true;
-            this.cbReleaseName.Location = new System.Drawing.Point(490, 18);
+            this.cbReleaseName.Location = new System.Drawing.Point(477, 18);
             this.cbReleaseName.Name = "cbReleaseName";
             this.cbReleaseName.Size = new System.Drawing.Size(60, 21);
             this.cbReleaseName.TabIndex = 8;
@@ -285,7 +285,7 @@
             // lblReleaseName
             // 
             this.lblReleaseName.AutoSize = true;
-            this.lblReleaseName.Location = new System.Drawing.Point(431, 21);
+            this.lblReleaseName.Location = new System.Drawing.Point(418, 21);
             this.lblReleaseName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblReleaseName.Name = "lblReleaseName";
             this.lblReleaseName.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1069,11 +1069,11 @@
             private System.Windows.Forms.Button btnConfigFile;
             private System.Windows.Forms.Label lblConfigFile;
             private System.Windows.Forms.Label lblNumber;
-            private System.Windows.Forms.TextBox tbNumber;
             private System.Windows.Forms.TextBox tbCodeSystemsFile;
             private System.Windows.Forms.Button btnCodeSystemsFile;
             private System.Windows.Forms.Label lblCodeSystemsFile;
             private System.Windows.Forms.TextBox tbReleaseInfo;
+            private System.Windows.Forms.ComboBox cbReleaseNumber;
         }
     }
 }

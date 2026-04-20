@@ -192,8 +192,8 @@ namespace Zibs
                                             fillRow(message, ref iRow, iOrigin[1], ref mySheet);
                                             break;
                                     }
-                                }
-                                else
+
+                                }                                else
                                     fillRow(aLine, ref iRow, iOrigin[1], ref mySheet);
                             }
                             else
