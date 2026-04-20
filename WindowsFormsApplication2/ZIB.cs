@@ -416,6 +416,7 @@ namespace Zibs
             private string section2text(string sectionName, outputType mode, textLanguage language)
             {
                 string sectionText = "";
+               
                 EA.Package section = zp.Packages.GetByName(sectionName);
                 if (!string.IsNullOrEmpty(section.Notes))
                 {

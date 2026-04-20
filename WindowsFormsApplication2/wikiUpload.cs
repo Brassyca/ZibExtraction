@@ -140,6 +140,7 @@ namespace Zibs
                                 // Kijk of de filenaam de string "_Section" bevat ten teken dat er slechts een sectie vervangen wordt
                                 string pageName = getPageName(Path.GetFileNameWithoutExtension(fileName), out section);
                                 string extension = Path.GetExtension(fileName);
+
                                 // voeg evt. indien gewenst namespaces als extensie toe om page upload hiervan mogelijk te maken
                                 // doe dit niet voor beelden en bestanden: deze worden 'uploadImage'verstuurd: dit kan grotere bestanden aan
                                 switch (extension)
@@ -162,6 +163,7 @@ namespace Zibs
                                         pageName = "";
                                         break;
                                 }
+                                                                                                   
                                 if (pageName != "")
                                 {
                                     if (section == 0)
@@ -182,12 +184,14 @@ namespace Zibs
 
             private string getPageName(string filename, out int section)
             {
+                            
                 section = 0;
                 int j = filename.IndexOf("_Section");
                 if (j != -1)
                     if (int.TryParse(filename.Substring(j + 8, 1), out section)) // gaat fout bij meer dan 9 secties
                         filename = filename.Substring(0, j);
                 filename = filename.Replace('$', ':');
+
                 return filename;
             }
 
